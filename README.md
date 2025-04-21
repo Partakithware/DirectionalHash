@@ -1,85 +1,69 @@
 # DirectionalHash (dhash)
-Author: Maxwell Wingate
-Version: Release Candidate 1
-License: MIT
-Platforms: Linux, Windows, macOS (C Cross-Platform Compatible)
+**Author:** Maxwell Wingate  
+**Version:** Release Candidate 1  
+**License:** MIT  
+**Platforms:** Linux, Windows, macOS (C Cross-Platform Compatible)
 
-# Overview
-DirectionalHash (dhash) is a novel, permutation-based hashing algorithm designed to provide a secondary verification mechanism alongside standard cryptographic hashes such as SHA-256 or SHA-512. Where traditional hash functions rely on mathematical transformations, dhash introduces spatial permutations using a 3x3 binary grid transformation technique, allowing bit-level directional analysis of data. This makes it particularly valuable for double-verification scenarios, where increased sensitivity to low-level binary changes is desirable.
+---
 
-This algorithm is not intended to replace secure cryptographic hash functions but to supplement them in applications involving file integrity, forensic verification, or high-security checksum validation workflows.
+## Overview
 
-# Motivation
-Standard hashing algorithms like SHA-256 are optimized for speed and cryptographic security. However, in certain edge cases involving highly structured or transformed data, a second, differently-behaving hashing layer can detect anomalies that might otherwise be overlooked.
+**DirectionalHash (dhash)** is an advanced, grid-based preprocessing system layered over cryptographic digest functions. It introduces byte-level entropy transformation through a **weighted, positionally-biased 3x3 binary grid**, enabling highly sensitive structural interpretation of file content prior to digest generation. This architecture makes dhash particularly effective for **double-verification systems**, where traditional cryptographic hashes (e.g., SHA-256, SHA-512) are supplemented with a logic-driven, pattern-sensitive verification layer.
 
-DirectionalHash addresses this by introducing directional permutations at the bit level, capturing both structural and sequential information via multiple read paths across a compact 3x3 grid.
+**DirectionalHash is not a replacement for cryptographic hash functions.** Instead, it enhances verification workflows by exposing subtle differences in binary structure that may not impact conventional hashes, offering unique value in digital forensics, integrity auditing, and secure archival environments.
 
-# How It Works
-# Bit-to-Grid Mapping:
-Each byte is converted into an 8-bit binary string and mapped to a 3x3 grid. The ninth cell remains blank, introducing positional variability.
+---
 
-# Directional Reads:
-The grid is read in four distinct, predefined directional permutations. These reads are:
+## Key Differentiators
 
-Left-to-right, top-down
+- ✅ **Bit-to-grid preprocessing:** Every byte is decomposed into a 3x3 grid with one randomized blank cell, producing spatial variation in structure.
+- ✅ **Weighted directional reads:** Each grid undergoes entropy-weighted readouts based on grid population and positional bias, creating a dynamic output stream.
+- ✅ **Permutation-driven output:** The final bitstream reflects not only byte values but their structural implication—making even minor binary differences detectable.
+- ✅ **Cross-platform compatibility:** C-based implementation with OpenSSL and OpenMP ensures performance and portability across all major OS environments.
 
-Right-to-left, bottom-up
+---
 
-Diagonally (TL-BR and TR-BL)
+## Methodology
 
-Mixed pattern with center-first traversal
+### 1. **Grid Encoding**
+Each byte is converted to an 8-bit binary string and mapped left-to-right, top-down into a 3x3 grid. The final cell remains empty (`NULL`), introducing a variable node in each matrix.
 
-# Flattening and Concatenation:
-The values from each read permutation are flattened into a continuous string of bits.
+### 2. **Weight Bias and Entropy**
+Each grid cell is scored using a weight matrix influenced by:
+- Binary value (`1` vs `0`)
+- Positional influence (center vs edge vs corner)
+These scores dictate traversal order and control how each byte is serialized into the hash pipeline.
 
-# Repacking and Hashing:
-The bitstring is repacked into bytes and fed into a cryptographic digest (SHA256, SHA512, SHAKE256 depending on configuration) to produce the final hash.
+### 3. **Flattening Process**
+Grids are traversed in weight-descending order, not fixed patterns. This allows **adaptive reads per byte**, maximizing structural sensitivity.
 
-# Features
-✅ 256, 512, 1024, and 2048-bit output support
+### 4. **Bitstream Reassembly**
+Serialized bits are re-packed into bytes, forming the intermediate data that is digested using a selected cryptographic hash (SHA256, SHA512, or SHAKE256 for extended output).
 
-✅ Written in portable C with OpenSSL dependency
+### 5. **Final Hash Output**
+The final hash is the cryptographic digest of the entropy-transformed byte stream, highly sensitive to both value and bit-placement changes.
 
-✅ Chunk-based reading for memory efficiency
+---
 
-✅ Optional parallelism hooks (OpenMP-ready)
+## Features
 
-✅ .deb package available for Debian-based systems
+- ✔️ **Output sizes:** 256, 512, 1024, 2048 bits
+- ✔️ **Threading:** Multi-core support via OpenMP
+- ✔️ **Performance:** Optimized C implementation using chunk-based I/O
+- ✔️ **Cross-platform:** Runs on Linux, macOS, Windows
+- ✔️ **Optional timing:** Use `--time` to benchmark hash duration
+- ✔️ **.deb package available** for easy installation on Debian-based systems
 
-# Use Cases
-Redundant Verification
-Use dhash in tandem with SHA-256 to detect binary-level modifications that may evade pattern-agnostic hashing.
+---
 
-Forensic Applications
-Leverage directional sensitivity to detect non-obvious file manipulations or tampering.
+## Usage
 
-Custom Security Systems
-Define unique grid read sequences per organization/site to further obfuscate and protect against hash precomputation attacks.
+```bash
+# Default: 256-bit hash, 8192-byte chunks, 4 threads
+./directional_hash myfile.txt
 
-# Example
-# Basic usage with default settings
-dhash myfile.zip
-# 1024-bit hash with 8KB chunks and 4 worker threads
-dhash myfile.iso 1024 8192 4
+# Custom size, chunking, and threading
+./directional_hash myfile.iso 1024 16384 8
 
-
-# Performance Note
-DirectionalHash prioritizes thoroughness over speed. A 150MB file may take several minutes to verify depending on system specifications, whereas lightweight files (under 1MB) are processed in under a second. It is particularly optimized for batch verification of many small files.
-
-# Future Goals
-Parallelization improvements (OpenMP tuning)
-
-Integration with GUI file integrity checkers
-
-Customizable directional pattern sets
-
-Language bindings for Python, Rust, and Go
-
-# Disclaimer
-DirectionalHash is not intended to replace cryptographic standards. It should be used as a supplementary hash function in scenarios where detailed binary structure analysis is necessary. It is ideal for enhancing integrity verification—not for standalone encryption or password storage.
-
-# Acknowledgments
-This project is the original work of Maxwell Wingate, who conceptualized and directed the design of the algorithm. It was brought to life with support from OpenAI assistance and hopefully made useful by community testing and potential updates.
-
-
-
+# Include timing output
+./directional_hash myfile.deb 512 8192 6 --time
