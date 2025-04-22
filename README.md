@@ -62,7 +62,7 @@ The final hash is the cryptographic digest of the entropy-transformed byte strea
 # Default: 256-bit hash, 8192-byte chunks, 4 threads (.deb release)
 dhash myfile.txt
 
-# Custom size, chunking, and threading
+# Custom hash-size, chunking, and threading
 dhash myfile.iso 1024 16384 8
 
 # Include timing output
