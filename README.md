@@ -59,11 +59,11 @@ The final hash is the cryptographic digest of the entropy-transformed byte strea
 ## Usage
 
 ```bash
-# Default: 256-bit hash, 8192-byte chunks, 4 threads
-./directional_hash myfile.txt
+# Default: 256-bit hash, 8192-byte chunks, 4 threads (.deb release)
+./dhash myfile.txt
 
 # Custom size, chunking, and threading
-./directional_hash myfile.iso 1024 16384 8
+./dhash myfile.iso 1024 16384 8
 
 # Include timing output
-./directional_hash myfile.deb 512 8192 6 --time
+./dhash myfile.deb 512 8192 6 --time
