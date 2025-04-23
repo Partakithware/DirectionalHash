@@ -16,6 +16,8 @@ This process enhances the sensitivity of the resulting hash, making it especiall
 
 > DirectionalHash is **not** a replacement for cryptographic hash functions. Instead, it augments them—ideal for **digital forensics**, **integrity auditing**, and **secure archival environments**.
 
+
+CONS: Overhead/Time-Consumption: My test (limited machine - older laptop) 20-seconds fastest recorded time per 150mb (not great for big files but its intended for increased security checks not speed)
 ---
 
 ## ✨ Key Differentiators
