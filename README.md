@@ -4,7 +4,7 @@
 **Version:** Release Candidate 4  
 **License:** MIT  
 **Platforms:** Linux, Windows, macOS (C Cross-Platform Compatible)
-**Version-Depicted: RC4
+**Version-Depicted:** RC4
 ---
 
 ## 🧭 Overview
