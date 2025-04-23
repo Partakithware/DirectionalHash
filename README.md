@@ -18,6 +18,8 @@ This process enhances the sensitivity of the resulting hash, making it especiall
 
 
 CONS: Overhead/Time-Consumption: My test (limited machine - older laptop) 20-seconds fastest recorded time per 150mb (not great for big files but its intended for increased security checks not speed)
+0.696456 seconds for 4mb files (can set various things to increase speeds)
+
 ---
 
 ## ✨ Key Differentiators
