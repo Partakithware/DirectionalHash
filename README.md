@@ -6,7 +6,10 @@
 **Platforms:** Linux, Windows, macOS (C Cross-Platform Compatible)
 
 **Version-Depicted:** RC4
+**Latest-Version-Uploaded: RC5
+**Downloads of releases: [![Total Downloads](https://img.shields.io/github/downloads/Partakithware/BaseZ/total.svg)](https://github.com/Partakithware/BaseZ/releases)
 ---
+
 
 ## 🧭 Overview
 
