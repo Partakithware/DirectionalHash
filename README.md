@@ -17,8 +17,15 @@ This process enhances the sensitivity of the resulting hash, making it especiall
 > DirectionalHash is **not** a replacement for cryptographic hash functions. Instead, it augments them—ideal for **digital forensics**, **integrity auditing**, and **secure archival environments**.
 
 
-CONS: Overhead/Time-Consumption: My test (limited machine - older laptop) 20-seconds fastest recorded time per 150mb (not great for big files but its intended for increased security checks not speed)
-0.696456 seconds for 4mb files (can set various things to increase speeds)
+CONS: Overhead/Time-Consumption: My test (limited machine - older laptop) 
+
+15-seconds fastest recorded time per 170mb (rc5 test, not great for big files but its intended for increased security checks not speed)
+my@linuxpc:~/Documents/Dhash$ ./dhash "/home/username/Downloads/Vortex-1-1-14-3-1750157786.exe" 512 4096 4 --time
+d68732b0a195e6b9310bb1a492932b5eae1f45f2d40e8e5c35e38f7f5f536cdfc7cab666d48b2d4c2d8d6d3103b8d60913878a2b73bf26402f33cf94f264aecf
+Time elapsed: 15.271838 seconds
+
+
+0.696456 seconds or less for 4mb files (can set various things to increase speeds)
 
 ---
 
