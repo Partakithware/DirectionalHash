@@ -1,7 +1,7 @@
 # DirectionalHash (`dhash`)
 
 **Author:** Maxwell Wingate  
-**Version:** Release Candidate 4  
+**Version:** Beta Release Candidate 5  
 **License:** MIT  
 **Platforms:** Linux, Windows, macOS (C Cross-Platform Compatible)
 
